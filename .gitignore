@@ -1,0 +1,24 @@
+## --- Compilaciones de Tectonic ---
+# Archivo final de salida
+thesis.pdf
+# Carpeta interna de trabajo de Tectonic (si usas -X build)
+build/
+
+## --- Archivos temporales de editores ---
+*.texshop
+*~
+*.swp
+*.bak
+.DS_Store
+Thumbs.db
+
+## --- Por si ejecutas LaTeX tradicional accidentalmente ---
+*.aux
+*.log
+*.toc
+*.lof
+*.lot
+*.out
+*.bbl
+*.blg
+*.synctex.gz

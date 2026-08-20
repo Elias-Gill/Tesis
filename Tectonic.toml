@@ -1,0 +1,8 @@
+[doc]
+name = "Proyecto de tesis"
+bundle = "https://data1.fullyjustified.net/tlextras-2022.0r0.tar"
+
+[[output]]
+name = "Tesis"
+type = "pdf"
+inputs = "main.tex"
