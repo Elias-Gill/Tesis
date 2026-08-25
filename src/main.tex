@@ -15,22 +15,27 @@
 \fi
 
 %========================================================================================
-% PAQUETES (Deben ir en el preámbulo, antes de \begin{document})
+% Preámbulo y paquetes (deben ir antes de \begin{document})
 %========================================================================================
+
 \usepackage{usnomencl}
 \usepackage{verbatim}
 \usepackage[ruled, linesnumbered, noline]{algorithm2e}
 \newcommand{\listofalgorithmes}{\tocfile{\listalgorithmcfname}{loa}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
-%\usepackage{StyleFiles/watermark}
+
+% --- DE MOMENTO NO SE USAN PARA NADA ----
+%\usepackage{config/StyleFiles/watermark}
 %\usepackage{algorithm}
 %\usepackage{algorithmic}
 %\usepackage[noline, linesnumbered]{algorithm2e}
-%\usepackage[spanish]{babel} 
+% \usepackage[spanish]{babel} 
 %\usepackage[spanish, activeacute]{babel}
 %\usepackage[latin1]{inputenc}
 %\usepackage{amscd}
 %\usepackage{float}
+
+\usepackage{config/StyleFiles/nuestros_estilos}
 
 %========================================================================================
 % INICIO DEL DOCUMENTO
@@ -48,21 +53,27 @@
             \textsc{\Large Ingenier\'ia en Inform\'atica}\\[1.5cm]
             \includegraphics[width=40mm]{NewlogoPolitecnicaUNA.jpg} \\[1.0cm]
             
-            % Title (sin líneas negras HRule)
+            % Titulo
             \vspace*{0.4cm} 
             { \bfseries Tesis de Grado} \\[0.4cm]
-            { \bfseries Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.}\\[1.9cm] 
+            { \bfseries 
+                Análisis y evaluación comparativa de estrategias algorítmicas para la
+                generación automática de horarios académicos en la FP-UNA y demostración de su
+                viabilidad mediante un prototipo experimental
+            }\\[1.9cm] 
             
-            % Author and supervisor
-            \begin{minipage}{0.4\textwidth}
+            % Autores
+            \begin{minipage}{0.5\textwidth}
             \begin{flushleft} \large
             \emph{Autores:}\\[0.2cm]
-            Lorem ipsum dolor sit amet\\
-            Lorem ipsum dolor sit amet
+            Elias Sebastián Gill Quintana \\
+            German Antonio Mendieta González
             \end{flushleft}
             \end{minipage}%
             \begin{minipage}{0.4\textwidth}
             \begin{flushright} \large
+
+            % Tutor/tutores
             \emph{Tutores:} \\[0.2cm]
             Prof. Ing. Ellen L. Mendez X.
             \end{flushright}
@@ -70,9 +81,9 @@
             
             \vspace*{2.5cm}
             
-            % Bottom of the page
+            % Fecha y localidad
             \textsc{\large San Lorenzo - Paraguay} \\[0.05cm]            
-            \textsc{\large XX - 2023}
+            \textsc{\large XX - 2027}
     \end{center}
 \end{titlepage}
 
@@ -86,26 +97,34 @@
 %set the number of sectioning levels that get number and appear in the contents
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
-%-----------------------------------------
 
-%-----------------------------------------
+%========================================================================================
+% Dedicatorias y agradecimientos
+%========================================================================================
 \frontmatter % book mode only
 \pagenumbering{roman}
 \include{Dedication/dedication}
 \include{Acknowledgement/acknowledgement}
+
+%========================================================================================
+% Abstract y resumen
+%========================================================================================
 \include{Abstract/abstract}
 \include{Resumen/resumen}
 
-\renewcommand{\contentsname}{Contenido} 
+%========================================================================================
+% Tabla de contenidos
+%========================================================================================
 \tableofcontents
 
-%% ========= Lista de Figuras ============
-\renewcommand\listfigurename{Lista de Figuras}
-\renewcommand{\figurename}{Figura}
+%========================================================================================
+% Listas de figuras
+%========================================================================================
 \listoffigures
 
-
-%% ========= Lista de ACRONIMOS ============
+%========================================================================================
+% Listas de acronimos
+%========================================================================================
 \newpage
 \chapter*{Lista de Acr\'onimos}
 \addcontentsline{toc}{chapter}{Lista de Acr\'onimos}
@@ -115,12 +134,14 @@
 \input{acronimos}
 \end{Nomencl}
 
-%% ========= Lista de Tablas ============
-\renewcommand\listtablename{Lista de Tablas}
-\renewcommand{\tablename}{Tabla}
+%========================================================================================
+% Listas de tablas
+%========================================================================================
 \listoftables
 
-%% ========= Lista de Algoritmos ============
+%========================================================================================
+% Listas de algoritmos
+%========================================================================================
 %\SetAlgorithmName{Algoritmo}{Alg}{Lista de Algoritmos}
 %\addcontentsline{toc}{chapter}{Indice de algoritmos}
 %\listofalgorithmes
@@ -139,28 +160,32 @@
 %\renewcommand{\listalgorithmname}{List of Algorithms}%
 %\algorithmname{Algorithm}
 
-\mainmatter % book mode only
-\renewcommand\chaptername{Cap\'itulo}
+\mainmatter
+
+%========================================================================================
+% Lista de capitulos
+%========================================================================================
+
 \include{Introduction/introduction}
-\renewcommand\chaptername{Cap\'itulo}
+
 \include{Chapter1/chapter1}
-\renewcommand\chaptername{Cap\'itulo}
-%\include{Chapter2/chapter2}
-%\renewcommand\chaptername{Cap\'itulo}
-%\include{Chapter3/chapter3}
-%\renewcommand\chaptername{Cap\'itulo}
+
+\include{Chapter2/Chapter2}
+
 \include{Conclusions/conclusions}
 
-\backmatter % book mode only
-\renewcommand\appendixname{Apéndices:}
+%========================================================================================
+% Apendices
+%========================================================================================
 \newpage
 \appendix
-\renewcommand\appendixname{Apéndice A}
 \include{Appendix1/appendix1}
-% \renewcommand\appendixname{Apéndice B}
-% \include{Appendix2/appendix2}
 
-\renewcommand{\bibname}{Referencias} % changes default name Bibliography to References
+%========================================================================================
+% Bibliografia
+%========================================================================================
+\backmatter
+
 \bibliography{References/references} %References file
 \bibliographystyle{alpha}
 

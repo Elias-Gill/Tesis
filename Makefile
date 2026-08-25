@@ -6,7 +6,7 @@ all: build
 # Preamble
 # ====================
 
-Tesis.pdf: build/Tesis/Tesis.pdf
+Tesis.pdf:
 	@[ -f Tesis.pdf ] || ln -s build/Tesis/Tesis.pdf ./Tesis.pdf
 
 .compile:

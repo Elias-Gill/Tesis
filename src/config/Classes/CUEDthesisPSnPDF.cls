@@ -30,7 +30,7 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{eucal}
-\usepackage[english]{babel}
+\usepackage[spanish, es-tabla]{babel}
 \usepackage[usenames, dvipsnames]{color}
 \usepackage[perpage]{footmisc}
 \usepackage[square, sort, numbers]{natbib}
@@ -100,7 +100,7 @@
 %========================================================================
 
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter. #1 }}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{}}
 \renewcommand{\sectionmark}[1]{}
 \fancyhf{}
 \fancyhead[RO]{\bfseries\rightmark}
@@ -232,3 +232,54 @@
 {\setcounter{page}{1}
   \renewcommand{\thepage}{\roman{page}}}
 {\newpage\renewcommand{\thepage}{\arabic{page}}}
+
+%========================================================================
+% MODIFICACIONES NATIVAS PARA APÉNDICES Y FORMATO DE TOC
+%========================================================================
+\makeatletter
+
+% 1. Formato general del TOC para capítulos normales (sin el punto tras el número)
+\renewcommand{\numberline}[1]{#1\hspace{.8em}}
+
+% 2. Comando para activar el modo de Apéndices
+\newcommand{\activarApendicesManuales}{%
+  % Desactiva la 'A.' en la Tabla de Contenidos ajustando \l@chapter
+  \renewcommand*\l@chapter[2]{%
+    \ifnum \c@tocdepth >\m@ne
+      \addpenalty{-\@highpenalty}%
+      \vskip 1.0em \@plus\p@
+      \setlength\@tempdima{1.5em}%
+      \begingroup
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        \leavevmode \bfseries
+        \advance\leftskip\@tempdima
+        \hskip -\leftskip
+        ##1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss ##2}\par
+        \penalty\@highpenalty
+      \end{group}%
+    \fi
+  }%
+  % En el cuerpo del documento: no imprime la "A" gigante automática arriba
+  \def\@makechapterhead##1{%
+    \vspace*{50\p@}%
+    {\parindent \z@ \raggedright \normalfont
+      \interlinepenalty\@M
+      \Huge \bfseries ##1\par\nobreak
+      \vskip 40\p@
+    }}%
+  % Formato de contadores de Tablas/Figuras (Tabla A.1, Figura A.1)
+  \setcounter{table}{0}%
+  \setcounter{figure}{0}%
+  \setcounter{equation}{0}%
+  \gdef\thetable{\thechapter.\arabic{table}}%
+  \gdef\thefigure{\thechapter.\arabic{figure}}%
+  \gdef\theequation{\thechapter.\arabic{equation}}%
+}
+
+% Forzar que babel ejecute nuestro parche SIEMPRE que se llame a \appendix
+\AtBeginDocument{%
+  \g@addto@macro\appendix{\activarApendicesManuales}%
+}
+
+\makeatother

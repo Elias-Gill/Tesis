@@ -1,0 +1,109 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{config/StyleFiles/nuestros_estilos}[2026/08/25 Modificacion de Apendices]
+
+\RequirePackage[spanish,es-tabla]{babel}
+
+\makeatletter
+
+\AtBeginDocument{%
+  % =====================================
+  % Redefinicion de nombres de etiquetas
+  % =====================================
+  \addto\captionsspanish{%
+    \renewcommand{\chaptername}{Capítulo}%
+    \renewcommand{\contentsname}{Contenidos}%
+    \renewcommand{\listfigurename}{Lista de Figuras}%
+    \renewcommand{\figurename}{Figura}%
+    \renewcommand{\listtablename}{Lista de Tablas}%
+    \renewcommand{\tablename}{Tabla}%
+    \renewcommand{\bibname}{Referencias}%
+    \renewcommand{\appendixname}{Apéndice}%
+  }%
+
+  % Fuerza los titulos directos en los comandos de la plantilla CUEDthesis
+  \gdef\listtablename{Lista de Tablas}
+  \gdef\listfigurename{Lista de Figuras}
+  \gdef\contentsname{Contenidos}
+  \gdef\bibname{Referencias}
+
+  % =====================================
+  % Correccion de apendices
+  % =====================================
+
+  \g@addto@macro\appendix{%
+    % Guardamos el \chapter tal como lo tenia la plantilla
+    % antes de entrar en apendices
+    \let\thesisoldchapter\chapter
+
+    % Redefinimos \chapter solo para la zona de apendices
+    \renewcommand{\chapter}[1]{%
+      \cleardoublepage
+
+      % Incrementa el contador del apendice (A, B, C...)
+      \refstepcounter{chapter}%
+
+      % Crea el titulo limpio sin "Capitulo A"
+      \thesisoldchapter*{#1}%
+
+      % Agrega el titulo al TOC sin numero
+      \addcontentsline{toc}{chapter}{#1}%
+
+      % Titulo del capitulo en el encabezado:
+      % solamente a la derecha y en Normal case
+      \markright{#1}%
+
+      % Reinicia los contadores de elementos del apendice
+      \setcounter{table}{0}%
+      \setcounter{figure}{0}%
+      \setcounter{equation}{0}%
+    }%
+
+    % =====================================
+    % Numeracion de figuras, tablas y
+    % ecuaciones dentro de los apendices
+    % =====================================
+
+    \gdef\thetable{\thechapter.\arabic{table}}%
+    \gdef\thefigure{\thechapter.\arabic{figure}}%
+    \gdef\theequation{\thechapter.\arabic{equation}}%
+  }%
+
+  % =====================================
+  % Encabezados
+  % =====================================
+
+  % Los capitulos normales tambien muestran
+  % su titulo solamente a la derecha.
+  \renewcommand{\chaptermark}[1]{%
+    \markright{#1}%
+  }%
+
+  \renewcommand{\sectionmark}[1]{}%
+
+  % En oneside solo utilizamos el encabezado derecho.
+  % Esto evita depender de leftmark.
+  \fancyhf{}
+  \fancyhead[R]{\bfseries\rightmark}
+  \fancyfoot[C]{\thepage}%
+  \renewcommand{\headrulewidth}{0.5pt}%
+  \renewcommand{\footrulewidth}{0pt}%
+}
+
+% =====================================
+% Restauracion despues de backmatter
+% =====================================
+
+\AtBeginDocument{%
+  \let\oldbackmatter\backmatter
+
+  \renewcommand{\backmatter}{%
+    \oldbackmatter
+
+    \ifx\thesisoldchapter\undefined
+    \else
+      \let\chapter\thesisoldchapter
+    \fi
+  }%
+}
+
+\makeatother
