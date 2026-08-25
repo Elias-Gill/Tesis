@@ -1,17 +1,34 @@
-.PHONY: all watch build format clean
+.PHONY: all watch build format clean check
 
-all: clean build
+all: build
 
-build:
+# ====================
+# Preamble
+# ====================
+
+Tesis.pdf: build/Tesis/Tesis.pdf
+	@[ -f Tesis.pdf ] || ln -s build/Tesis/Tesis.pdf ./Tesis.pdf
+
+.compile:
 	tectonic -X build --keep-logs --keep-intermediates
 
-watch:
+# ====================
+# Compilation targets
+# ====================
+
+build: .compile Tesis.pdf
+
+watch: Tesis.pdf
 	tectonic -X watch
 
-clean: 
-	rm -rf build/
+clean:
+	rm -rf Tesis.pdf build/
 
-format: 
+# ====================
+# QoL targets
+# ====================
+
+format:
 	find src -name "*.tex" -type f -exec tex-fmt {} +
 
 check:

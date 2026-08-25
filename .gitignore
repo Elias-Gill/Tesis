@@ -1,8 +1,10 @@
 ## --- Compilaciones de Tectonic ---
-# Archivo final de salida
-thesis.pdf
 # Carpeta interna de trabajo de Tectonic (si usas -X build)
 build/
+
+# Archivo de salida pdf
+thesis.pdf
+Tesis.pdf
 
 ## --- Archivos temporales de editores ---
 *.texshop
