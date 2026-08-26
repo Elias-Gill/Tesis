@@ -77,7 +77,7 @@
 ]{hyperref}
 
 \DeclareGraphicsExtensions{.png, .jpg, .pdf, .eps}
-\graphicspath{{ThesisFigs/PNG/}{ThesisFigs/PDF/}{ThesisFigs/EPS/}{ThesisFigs/}}
+\graphicspath{{assets/}}
 
 %========================================================================
 % LAYOUT Y MÁRGENES NATIVOS EXACTOS DEL ORIGINAL
